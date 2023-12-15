@@ -170,12 +170,12 @@ app.patch('/todo/:id', (req, res) => {
     try {
         let sql = "UPDATE todos SET description = ? WHERE id = ?;";
         let id = req.params.id;
-        let todo = req.body.description;
+        let todo = req.body.todo;
         cnx.query(sql, [todo, id], function (error, result) {
             if (!error && result.affectedRows) {
                 res.status(200).json({ "id": id, "message": "item successfully updated" });
             } else {
-                res.status(404).send({ "id": id, "message": "error updating item" });
+                res.status(404).send({ "id": id, "message": "error updating item", "error": error });
             }
         }); // query
 
